@@ -1,81 +1,81 @@
 /* styles.css */
 
-/* Reset e base */
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
   font-family: Arial, sans-serif;
-  background: #f5f5f5;
-  padding: 20px;
+  background-color: #f7f7f7;
+  margin: 20px;
 }
 
-h1,
-h2 {
-  margin-bottom: 10px;
+h1 {
+  margin-bottom: 20px;
 }
 
 .container {
-  background: #fff;
+  background-color: #fff;
   padding: 20px;
   border-radius: 5px;
+}
+
+.config-section,
+.players-section {
+  margin-bottom: 30px;
 }
 
 .form-group {
   margin-bottom: 15px;
 }
 
-.form-group label {
+label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
 input[type="number"] {
-  width: 200px;
+  width: 150px;
   margin-right: 10px;
 }
 
 button {
-  margin: 5px 0;
   padding: 8px 12px;
-  border: none;
-  background: #007bff;
+  margin: 5px 0;
+  background-color: #007bff;
   color: #fff;
-  cursor: pointer;
+  border: none;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 button:hover {
-  background: #0056b3;
+  background-color: #0056b3;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
-  margin-bottom: 20px;
 }
 
 th,
 td {
-  text-align: center;
   border: 1px solid #ddd;
   padding: 8px;
+  text-align: center;
 }
 
 th {
-  background: #007bff;
+  background-color: #007bff;
   color: #fff;
 }
 
 #baseValueResult,
 #playersValueResult {
-  margin-top: 10px;
-  background: #e8f0fe;
+  background-color: #e8f0fe;
+  margin-top: 15px;
   padding: 10px;
   border-radius: 5px;
 }
