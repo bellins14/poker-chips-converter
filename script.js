@@ -41,20 +41,25 @@ document.addEventListener("DOMContentLoaded", () => {
   // Funzione per bloccare i decimali nei campi quantità
   // =======================
   const enforceIntegerInput = (inputElement) => {
+    // Previene l'inserimento di punti o virgole tramite tastiera
     inputElement.addEventListener("keydown", (event) => {
-      // Previene l'inserimento di punti o virgole
       if (event.key === "." || event.key === ",") {
         event.preventDefault();
       }
     });
 
+    // Gestisce input incollati con valori non validi
+    inputElement.addEventListener("input", () => {
+      inputElement.value = inputElement.value.replace(/[^0-9]/g, ""); // Rimuove qualsiasi carattere non numerico
+    });
+
+    // Controlla il valore finale quando l'utente esce dal campo
     inputElement.addEventListener("blur", () => {
-      // Controlla che il valore finale sia valido
       if (
-        isNaN(parseInt(inputElement.value)) ||
-        parseInt(inputElement.value) < 0
+        isNaN(parseInt(inputElement.value)) || // Se il valore non è un numero
+        parseInt(inputElement.value) < 0 // O è un numero negativo
       ) {
-        inputElement.value = "";
+        inputElement.value = ""; // Resetta il campo
       }
     });
   };
@@ -214,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
           denominationsData.push({ denom: d, quantity: q });
         }
       }
-      enforceIntegerInput(quantityInput);
+      enforceIntegerInput(inputs);
     });
     if (denominationsData.length === 0) {
       alert(
