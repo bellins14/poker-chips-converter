@@ -1,14 +1,23 @@
+:root {
+  --poker-green: #043927; /* Verde scuro del tavolo */
+  --poker-red: #b22222; /* Rosso mattone */
+  --poker-red-hover: #8b0000; /* Rosso scuro per hover */
+  --poker-gold: #ffd700; /* Oro per accenti */
+  --poker-dark-green: #062e24; /* Verde più scuro per sfondi */
+  --poker-light-text: #ffffff; /* Bianco per testo */
+}
+
 /* Generale */
 body {
   font-family: "Arial", sans-serif;
-  background-color: #043927; /* Verde scuro del tavolo */
-  color: #ffffff; /* Testo bianco per contrasto */
+  background-color: var(--poker-green);
+  color: var(--poker-light-text);
   margin: 0;
   padding: 0;
 }
 
 h1 {
-  color: #ffd700; /* Oro per titoli principali */
+  color: var(--poker-gold);
   text-align: center;
   margin: 20px 0;
   font-size: 2.5rem;
@@ -16,8 +25,8 @@ h1 {
 }
 
 h2 {
-  color: #ff4500; /* Rosso brillante per sezioni */
-  border-bottom: 2px solid #ffd700;
+  color: var(--poker-red);
+  border-bottom: 2px solid var(--poker-gold);
   padding-bottom: 5px;
   margin-bottom: 15px;
 }
@@ -25,7 +34,7 @@ h2 {
 .container {
   max-width: 900px;
   margin: 0 auto;
-  background-color: #062e24; /* Verde più scuro per box */
+  background-color: var(--poker-dark-green);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
@@ -39,18 +48,18 @@ table {
 }
 
 th {
-  background-color: #ff0000; /* Rosso brillante */
-  color: #ffffff;
+  background-color: var(--poker-red);
+  color: var(--poker-light-text);
   padding: 10px;
-  border: 1px solid #ffd700; /* Oro per bordi */
+  border: 1px solid var(--poker-gold);
   text-align: center;
 }
 
 td {
-  background-color: #043927; /* Verde scuro */
-  color: #ffd700; /* Oro */
+  background-color: var(--poker-dark-green);
+  color: var(--poker-gold);
   padding: 10px;
-  border: 1px solid #ffd700;
+  border: 1px solid var(--poker-gold);
   text-align: center;
 }
 
@@ -60,8 +69,8 @@ tr:nth-child(even) td {
 
 /* Pulsanti */
 button {
-  background-color: #ff4500; /* Rosso brillante */
-  color: #ffffff;
+  background-color: var(--poker-red);
+  color: var(--poker-light-text);
   border: none;
   padding: 10px 15px;
   margin: 10px 0;
@@ -77,7 +86,7 @@ button:active {
 
 button:hover {
   background-color: #ff6347; /* Rosso chiaro */
-  box-shadow: 0px 0px 10px #ffd700; /* Effetto oro al passaggio */
+  box-shadow: 0px 0px 10px var(--poker-gold); /* Effetto oro al passaggio */
 }
 
 /* Input */
@@ -85,15 +94,15 @@ input[type="number"],
 input[type="text"] {
   width: 90%;
   padding: 8px;
-  border: 2px solid #ffd700; /* Bordo oro */
+  border: 2px solid var(--poker-gold);
   border-radius: 5px;
-  background-color: #062e24; /* Verde scuro */
-  color: #ffffff;
+  background-color: var(--poker-dark-green); /* Verde scuro */
+  color: var(--poker-light-text);
 }
 
 input[type="number"]:focus,
 input[type="text"]:focus {
-  border-color: #ff4500; /* Rosso brillante al focus */
+  border-color: var(--poker-red);
   outline: none;
 }
 
@@ -101,12 +110,12 @@ input[type="text"]:focus {
 #baseValueResult,
 #playersValueResult,
 #distributionResult {
-  background-color: #052e20; /* Verde scuro */
-  color: #ffd700; /* Oro */
+  background-color: var(--poker-dark-green);
+  color: var(--poker-gold);
   padding: 10px;
   border-radius: 8px;
   margin-top: 15px;
-  border: 1px solid #ffd700; /* Bordo oro */
+  border: 1px solid var(--poker-gold);
 }
 
 #playersValueResult ul {
@@ -117,7 +126,7 @@ input[type="text"]:focus {
 #playersValueResult li {
   margin: 5px 0;
   padding: 5px;
-  background-color: #062e24; /* Verde scuro */
+  background-color: var(--poker-dark-green);
   border-radius: 5px;
 }
 
