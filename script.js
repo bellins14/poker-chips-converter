@@ -41,9 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Funzione per bloccare i decimali nei campi quantità
   // =======================
   const enforceIntegerInput = (inputElement) => {
-    inputElement.addEventListener("input", () => {
-      // Rimuove punti o virgole durante l'inserimento
-      inputElement.value = inputElement.value.replace(/[^0-9]/g, "");
+    inputElement.addEventListener("keydown", (event) => {
+      // Previene l'inserimento di punti o virgole
+      if (event.key === "." || event.key === ",") {
+        event.preventDefault();
+      }
     });
 
     inputElement.addEventListener("blur", () => {
@@ -70,6 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const denomInput = document.createElement("input");
     denomInput.type = "number";
     denomInput.placeholder = "Valore";
+    enforceIntegerInput(quantityInput); // Applica il blocco decimali
     denomCell.appendChild(denomInput);
 
     // colonna: quantita'
@@ -200,7 +203,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   distributeChipsBtn.addEventListener("click", () => {
     // 1) Carichiamo i dati dei tagli di fiche
-    /**
     denominationsData = [];
     const denomRows = denominationsTableBody.querySelectorAll("tr");
     denomRows.forEach((row) => {
@@ -212,11 +214,6 @@ document.addEventListener("DOMContentLoaded", () => {
           denominationsData.push({ denom: d, quantity: q });
         }
       }
-    */
-    // Assicurati che tutte le quantità inserite siano interi
-    const denomRows = denominationsTableBody.querySelectorAll("tr");
-    denomRows.forEach((row) => {
-      const quantityInput = row.cells[1].querySelector("input");
       enforceIntegerInput(quantityInput);
     });
     if (denominationsData.length === 0) {
