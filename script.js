@@ -87,6 +87,42 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // =======================
+  // Funzione per aggiornare i limiti massimi delle fiches
+  // =======================
+  const updateMaxFichesLimits = () => {
+    // Trova tutte le righe della tabella finale
+    const rows = playersTableEnd.tBodies[0]?.rows;
+    if (!rows) return;
+
+    // Calcola il numero totale di fiches assegnate per ogni tipo (colonna)
+    const totalAssigned = new Array(denominationsData.length).fill(0);
+
+    for (let i = 0; i < rows.length; i++) {
+      for (let j = 1; j <= denominationsData.length; j++) {
+        const cellInput = rows[i].cells[j]?.querySelector("input");
+        if (cellInput) {
+          totalAssigned[j - 1] += parseInt(cellInput.value) || 0;
+        }
+      }
+    }
+
+    // Aggiorna i limiti massimi per ogni cella
+    for (let i = 0; i < rows.length; i++) {
+      for (let j = 1; j <= denominationsData.length; j++) {
+        const cellInput = rows[i].cells[j]?.querySelector("input");
+        if (cellInput) {
+          const totalAvailable = denominationsData[j - 1].quantity;
+          const remaining =
+            totalAvailable -
+            totalAssigned[j - 1] +
+            (parseInt(cellInput.value) || 0);
+          cellInput.max = remaining; // Imposta il limite massimo
+        }
+      }
+    }
+  };
+
+  // =======================
   // 1) CONFIGURAZIONE FICHES
   // =======================
 
@@ -401,9 +437,10 @@ document.addEventListener("DOMContentLoaded", () => {
   createPlayersTableEndBtn.addEventListener("click", () => {
     const rows = playersBuyInTable.tBodies[0]?.rows;
     if (!rows || rows.length === 0) {
-      alert("Devi prima creare la tabella buy-in (e magari distribuire?).");
+      alert("Devi prima creare la tabella buy-in.");
       return;
     }
+
     if (denominationsData.length === 0) {
       alert("Devi prima definire i tagli di fiche.");
       return;
@@ -437,16 +474,24 @@ document.addEventListener("DOMContentLoaded", () => {
       cellName.textContent = nickname;
 
       // Colonne per i tagli di fiche
-      denominationsData.forEach(({ denom }) => {
+      denominationsData.forEach(({ denom }, colIndex) => {
         const cell = tr.insertCell();
         const input = document.createElement("input");
         input.type = "number";
         input.min = "0";
-        //input.value = "0";
-        enforceIntegerInput(input); // Applica il blocco decimali
+        input.value = "0";
+
+        // Imposta il controllo dinamico sui valori massimi
+        input.addEventListener("input", () => {
+          updateMaxFichesLimits();
+        });
+
         cell.appendChild(input);
       });
     }
+
+    // Aggiorna i limiti iniziali
+    updateMaxFichesLimits();
   });
 
   calculatePlayersValueEndBtn.addEventListener("click", () => {
@@ -465,38 +510,46 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    let playerTotals = [];
-    let totalAmount = 0;
+    const totalAssigned = new Array(denominationsData.length).fill(0);
 
+    // Verifica che i valori non superino i limiti
+    for (let i = 0; i < tbody.rows.length; i++) {
+      for (let j = 1; j <= denominationsData.length; j++) {
+        const cellInput = tbody.rows[i].cells[j]?.querySelector("input");
+        if (cellInput) {
+          totalAssigned[j - 1] += parseInt(cellInput.value) || 0;
+          if (totalAssigned[j - 1] > denominationsData[j - 1].quantity) {
+            alert(
+              `Errore: il totale delle fiches da ${
+                denominationsData[j - 1].denom
+              } supera il massimo disponibile (${
+                denominationsData[j - 1].quantity
+              }).`
+            );
+            return;
+          }
+        }
+      }
+    }
+
+    // Se tutto è valido, procedi con il calcolo finale
+    let risultatiHTML = "<h3>Risultati Finali</h3><ul>";
     for (let i = 0; i < tbody.rows.length; i++) {
       const row = tbody.rows[i];
       const playerName = row.cells[0].textContent;
 
-      let totalPlayer = 0;
+      let totalAmount = 0;
       for (let j = 1; j < row.cells.length; j++) {
         const chipCount =
           parseInt(row.cells[j].querySelector("input").value) || 0;
         const denom = denominationsData[j - 1].denom;
-        totalPlayer += chipCount * denom * baseValue;
+        totalAmount += chipCount * denom * baseValue;
       }
 
-      playerTotals.push({ playerName, totalPlayer });
-      totalAmount += totalPlayer;
+      risultatiHTML += `<li><strong>${playerName}</strong>: ${totalAmount.toFixed(
+        2
+      )} €</li>`;
     }
-
-    // Arrotondiamo i valori al centesimo garantendo il totale corretto
-    const adjustedPlayerTotals = balancedRounding(
-      playerTotals.map((p) => p.totalPlayer * 100), // Convertiamo in centesimi
-      Math.round(totalAmount * 100) // Totale in centesimi
-    ).map((v) => v / 100); // Riconvertiamo in euro
-
-    // Mostriamo i risultati
-    let risultatiHTML = "<h3>Risultati Finali</h3><ul>";
-    adjustedPlayerTotals.forEach((total, index) => {
-      risultatiHTML += `<li><strong>${
-        playerTotals[index].playerName
-      }</strong>: ${total.toFixed(2)} €</li>`;
-    });
     risultatiHTML += "</ul>";
     playersValueResultEndDiv.innerHTML = risultatiHTML;
   });
