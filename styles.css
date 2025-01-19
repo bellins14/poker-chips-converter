@@ -1,94 +1,137 @@
-/* styles.css */
-
-* {
-  box-sizing: border-box;
-}
-
+/* Generale */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f7f7f7;
-  margin: 20px;
+  font-family: "Arial", sans-serif;
+  background-color: #043927; /* Verde scuro del tavolo */
+  color: #ffffff; /* Testo bianco per contrasto */
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
-  margin-bottom: 20px;
+  color: #ffd700; /* Oro per titoli principali */
+  text-align: center;
+  margin: 20px 0;
+  font-size: 2.5rem;
+  text-shadow: 2px 2px #000;
 }
 
-.container {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-}
-
-.config-section,
-.players-section,
-.distribution-section,
-.final-section {
-  margin-bottom: 30px;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 15px;
-}
-
-.config-section:last-child,
-.players-section:last-child,
-.distribution-section:last-child,
-.final-section:last-child {
-  border-bottom: none;
-}
-
-.form-group {
+h2 {
+  color: #ff4500; /* Rosso brillante per sezioni */
+  border-bottom: 2px solid #ffd700;
+  padding-bottom: 5px;
   margin-bottom: 15px;
 }
 
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #062e24; /* Verde più scuro per box */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-input[type="number"],
-input[type="text"] {
-  width: 150px;
-  margin-right: 10px;
-}
-
-button {
-  padding: 8px 12px;
-  margin: 5px 0;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
+/* Tabelle */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
-}
-
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
+  margin-top: 15px;
 }
 
 th {
-  background-color: #007bff;
-  color: #fff;
+  background-color: #ff0000; /* Rosso brillante */
+  color: #ffffff;
+  padding: 10px;
+  border: 1px solid #ffd700; /* Oro per bordi */
+  text-align: center;
 }
 
-#totalPotResult,
-#distributionResult,
-#playersValueResultEnd {
-  background-color: #e8f0fe;
-  margin-top: 15px;
+td {
+  background-color: #043927; /* Verde scuro */
+  color: #ffd700; /* Oro */
   padding: 10px;
+  border: 1px solid #ffd700;
+  text-align: center;
+}
+
+tr:nth-child(even) td {
+  background-color: #052e20; /* Alternanza leggermente più chiara */
+}
+
+/* Pulsanti */
+button {
+  background-color: #ff4500; /* Rosso brillante */
+  color: #ffffff;
+  border: none;
+  padding: 10px 15px;
+  margin: 10px 0;
   border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+button:hover {
+  background-color: #ff6347; /* Rosso chiaro */
+  box-shadow: 0px 0px 10px #ffd700; /* Effetto oro al passaggio */
+}
+
+/* Input */
+input[type="number"],
+input[type="text"] {
+  width: 90%;
+  padding: 8px;
+  border: 2px solid #ffd700; /* Bordo oro */
+  border-radius: 5px;
+  background-color: #062e24; /* Verde scuro */
+  color: #ffffff;
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus {
+  border-color: #ff4500; /* Rosso brillante al focus */
+  outline: none;
+}
+
+/* Risultati */
+#baseValueResult,
+#playersValueResult,
+#distributionResult {
+  background-color: #052e20; /* Verde scuro */
+  color: #ffd700; /* Oro */
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 15px;
+  border: 1px solid #ffd700; /* Bordo oro */
+}
+
+#playersValueResult ul {
+  list-style: none;
+  padding: 0;
+}
+
+#playersValueResult li {
+  margin: 5px 0;
+  padding: 5px;
+  background-color: #062e24; /* Verde scuro */
+  border-radius: 5px;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  body {
+    font-size: 90%;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  button {
+    padding: 8px 10px;
+  }
 }
