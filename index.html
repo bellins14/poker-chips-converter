@@ -3,24 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Poker Fish App</title>
+    <title>Poker Fish App - Buy-in Edition</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <h1>Convertitore di Fiches per Poker</h1>
+    <h1>Convertitore di Fiches per Poker (Buy-in)</h1>
 
     <div class="container">
-      <!-- Sezione Configurazione Iniziale -->
+      <!-- 1) Configurazione Fiches Disponibili -->
       <section class="config-section">
-        <h2>Configurazione Iniziale</h2>
-        <div class="form-group">
-          <label for="totalPot">Totale scommesso (es: 100€):</label>
-          <input
-            type="number"
-            id="totalPot"
-            placeholder="Inserisci l'importo totale"
-          />
-        </div>
+        <h2>1) Configurazione Fiches Disponibili</h2>
+        <p>
+          Specifica i tagli di fiche disponibili e la quantità per ciascun
+          taglio.
+        </p>
 
         <div class="form-group">
           <label>Tagli delle fiches e quantità:</label>
@@ -38,26 +34,59 @@
             </tbody>
           </table>
         </div>
-
-        <button id="calculateBaseValue">Calcola Valore Base</button>
-        <div id="baseValueResult"></div>
       </section>
 
-      <!-- Sezione Giocatori e Distribuzione Finale -->
+      <!-- 2) Configurazione Giocatori & Buy-in -->
       <section class="players-section">
-        <h2>Giocatori & Distribuzione Finale</h2>
+        <h2>2) Configurazione Giocatori & Buy-In</h2>
+        <p>
+          Specifica il numero di giocatori, i nickname e quanto ciascuno versa
+          come buy-in.
+        </p>
+
         <div class="form-group">
           <label for="numPlayers">Numero di giocatori:</label>
           <input type="number" id="numPlayers" min="1" value="2" />
-          <button id="createPlayersTable">Crea tabella giocatori</button>
+          <button id="createPlayersBuyInTable">Crea tabella buy-in</button>
         </div>
 
-        <table id="playersTable">
+        <table id="playersBuyInTable">
+          <!-- Verrà generata dinamicamente -->
+        </table>
+
+        <button id="sameBuyInForAll">Imposta lo stesso buy-in per tutti</button>
+        <button id="calculateTotalPot">
+          Calcola il totale (Pot) dai buy-in
+        </button>
+        <div id="totalPotResult"></div>
+      </section>
+
+      <!-- 3) Distribuzione Iniziale delle Fiches -->
+      <section class="distribution-section">
+        <h2>3) Distribuzione Iniziale delle Fiches</h2>
+        <p>
+          Distribuisci le fiches in base ai buy-in e alla disponibilità di
+          ciascun taglio.
+        </p>
+        <button id="distributeChipsBtn">Distribuisci Fiches</button>
+        <div id="distributionResult"></div>
+      </section>
+
+      <!-- 4) Calcolo Finale (come prima) -->
+      <section class="final-section">
+        <h2>4) Calcolo Risultati Finali</h2>
+        <p>
+          Dopo la partita, inserisci quante fiches di ciascun taglio ha ogni
+          giocatore per calcolare quanti soldi spettano.
+        </p>
+
+        <button id="createPlayersTableEnd">Crea/Reset tabella finale</button>
+        <table id="playersTableEnd">
           <!-- Generata dinamicamente -->
         </table>
 
-        <button id="calculatePlayersValue">Calcola Risultato Finale</button>
-        <div id="playersValueResult"></div>
+        <button id="calculatePlayersValueEnd">Calcola Risultato Finale</button>
+        <div id="playersValueResultEnd"></div>
       </section>
     </div>
 

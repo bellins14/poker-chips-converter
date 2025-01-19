@@ -21,8 +21,19 @@ h1 {
 }
 
 .config-section,
-.players-section {
+.players-section,
+.distribution-section,
+.final-section {
   margin-bottom: 30px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 15px;
+}
+
+.config-section:last-child,
+.players-section:last-child,
+.distribution-section:last-child,
+.final-section:last-child {
+  border-bottom: none;
 }
 
 .form-group {
@@ -35,7 +46,8 @@ label {
   margin-bottom: 5px;
 }
 
-input[type="number"] {
+input[type="number"],
+input[type="text"] {
   width: 150px;
   margin-right: 10px;
 }
@@ -72,8 +84,9 @@ th {
   color: #fff;
 }
 
-#baseValueResult,
-#playersValueResult {
+#totalPotResult,
+#distributionResult,
+#playersValueResultEnd {
   background-color: #e8f0fe;
   margin-top: 15px;
   padding: 10px;
