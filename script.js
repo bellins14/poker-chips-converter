@@ -378,16 +378,16 @@ document.addEventListener("DOMContentLoaded", () => {
     // Info sul baseValue
     let baseValues = denominationsData.map((den) => den.denom * baseValue); // Calcoliamo i valori reali
     let adjustedBaseValues = balancedRounding(
-      baseValues.map((v) => v * 100), // Convertiamo in centesimi
+      baseValues.map((v) => Math.round(v * 100)), // Convertiamo in centesimi
       Math.round(totalPot * 100) // Totale in centesimi
     ).map((v) => v / 100); // Riconvertiamo in euro
 
     html += `<p><strong>Valore base di 1 unità chip:</strong> ${baseValue.toFixed(
       4
     )} €</p>`;
-    denominationsData.forEach((den) => {
-      html += `<p>Fiche da ${den.denom}: ${(den.denom * baseValue).toFixed(
-        4
+    denominationsData.forEach((den, i) => {
+      html += `<p>Fiche da ${den.denom}: ${adjustedBaseValues[i].toFixed(
+        2
       )} €</p>`;
     });
 
