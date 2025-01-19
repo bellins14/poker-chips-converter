@@ -208,7 +208,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   distributeChipsBtn.addEventListener("click", () => {
     // 1) Carichiamo i dati dei tagli di fiche
-    denominationsData = [];
+    /**
+    // denominationsData = [];
     const denomRows = denominationsTableBody.querySelectorAll("tr");
     denomRows.forEach((row) => {
       const inputs = row.querySelectorAll("input");
@@ -219,7 +220,12 @@ document.addEventListener("DOMContentLoaded", () => {
           denominationsData.push({ denom: d, quantity: q });
         }
       }
-      enforceIntegerInput(inputs);
+    */
+    // Assicurati che tutte le quantità inserite siano interi
+    const denomRows = denominationsTableBody.querySelectorAll("tr");
+    denomRows.forEach((row) => {
+      const quantityInput = row.cells[1].querySelector("input");
+      enforceIntegerInput(quantityInput);
     });
     if (denominationsData.length === 0) {
       alert(
