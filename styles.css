@@ -7,6 +7,22 @@
   --poker-light-text: #ffffff; /* Bianco per testo */
 }
 
+/* Posizionamento del logo GitHub */
+#github-logo {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 2rem; /* Dimensione dell'icona */
+  color: var(--poker-light-text); /* Colore dell'icona (bianco) */
+  text-decoration: none; /* Rimuove la sottolineatura */
+  transition: color 0.3s, transform 0.3s; /* Animazione su hover */
+}
+
+#github-logo:hover {
+  color: var(--poker-gold); /* Oro su hover */
+  transform: scale(1.2); /* Leggero ingrandimento su hover */
+}
+
 /* Generale */
 body {
   font-family: "Arial", sans-serif;
