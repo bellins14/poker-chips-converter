@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const denomInput = document.createElement("input");
     denomInput.type = "number";
     denomInput.placeholder = "Valore";
-    enforceIntegerInput(quantityInput); // Applica il blocco decimali
+    //enforceIntegerInput(quantityInput); // Applica il blocco decimali
     denomCell.appendChild(denomInput);
 
     // colonna: quantita'
