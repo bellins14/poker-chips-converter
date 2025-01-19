@@ -62,6 +62,28 @@ document.addEventListener("DOMContentLoaded", () => {
         inputElement.value = ""; // Resetta il campo
       }
     });
+
+    // =======================
+    // Funzione per arrotondamenti bilanciati
+    // =======================
+    const balancedRounding = (values, total) => {
+      const roundedValues = values.map(Math.floor); // Approssimazioni iniziali (verso il basso)
+      const remainders = values.map((v, i) => v - roundedValues[i]); // Calcoliamo i resti
+      let difference = total - roundedValues.reduce((a, b) => a + b, 0); // Calcoliamo la differenza
+
+      // Ordina gli indici dei resti in ordine decrescente
+      const indices = remainders
+        .map((value, index) => ({ value, index }))
+        .sort((a, b) => b.value - a.value)
+        .map((item) => item.index);
+
+      // Distribuisci il resto partendo dai resti più grandi
+      for (let i = 0; i < difference; i++) {
+        roundedValues[indices[i]]++;
+      }
+
+      return roundedValues;
+    };
   };
 
   // =======================
@@ -354,6 +376,12 @@ document.addEventListener("DOMContentLoaded", () => {
     html += "</tbody></table>";
 
     // Info sul baseValue
+    let baseValues = denominationsData.map((den) => den.denom * baseValue); // Calcoliamo i valori reali
+    let adjustedBaseValues = balancedRounding(
+      baseValues.map((v) => v * 100), // Convertiamo in centesimi
+      Math.round(totalPot * 100) // Totale in centesimi
+    ).map((v) => v / 100); // Riconvertiamo in euro
+
     html += `<p><strong>Valore base di 1 unità chip:</strong> ${baseValue.toFixed(
       4
     )} €</p>`;
@@ -437,23 +465,38 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    let risultatiHTML = "<h3>Risultati Finali</h3><ul>";
+    let playerTotals = [];
+    let totalAmount = 0;
+
     for (let i = 0; i < tbody.rows.length; i++) {
       const row = tbody.rows[i];
       const playerName = row.cells[0].textContent;
 
-      let totalAmount = 0;
+      let totalPlayer = 0;
       for (let j = 1; j < row.cells.length; j++) {
         const chipCount =
           parseInt(row.cells[j].querySelector("input").value) || 0;
         const denom = denominationsData[j - 1].denom;
-        totalAmount += chipCount * (denom * baseValue);
+        totalPlayer += chipCount * denom * baseValue;
       }
 
-      risultatiHTML += `
-        <li><strong>${playerName}</strong>: ${totalAmount.toFixed(2)} €</li>
-      `;
+      playerTotals.push({ playerName, totalPlayer });
+      totalAmount += totalPlayer;
     }
+
+    // Arrotondiamo i valori al centesimo garantendo il totale corretto
+    const adjustedPlayerTotals = balancedRounding(
+      playerTotals.map((p) => p.totalPlayer * 100), // Convertiamo in centesimi
+      Math.round(totalAmount * 100) // Totale in centesimi
+    ).map((v) => v / 100); // Riconvertiamo in euro
+
+    // Mostriamo i risultati
+    let risultatiHTML = "<h3>Risultati Finali</h3><ul>";
+    adjustedPlayerTotals.forEach((total, index) => {
+      risultatiHTML += `<li><strong>${
+        playerTotals[index].playerName
+      }</strong>: ${total.toFixed(2)} €</li>`;
+    });
     risultatiHTML += "</ul>";
     playersValueResultEndDiv.innerHTML = risultatiHTML;
   });
