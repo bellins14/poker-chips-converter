@@ -1,16 +1,86 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convertitore Fiches</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Poker Fish App</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <h1>Convertitore di Fiches per Poker</h1>
-    <div id="app">
-        <!-- Qui andranno i campi di input e i bottoni -->
+
+    <div class="container">
+      <!-- Sezione input: TOT soldi, configurazione fiches -->
+      <section class="config-section">
+        <h2>Configurazione Iniziale</h2>
+
+        <!-- Totale scommesso/puntato (pot) -->
+        <div class="form-group">
+          <label for="totalPot">Totale scommesso (es. 100 per 100€):</label>
+          <input
+            type="number"
+            id="totalPot"
+            placeholder="Inserisci l'importo totale"
+          />
+        </div>
+
+        <!-- Tabella dinamica per i tagli di fiches e quantità disponibili -->
+        <div class="form-group">
+          <label>Tagli delle fiches e quantità disponibili:</label>
+          <button id="addDenomination">Aggiungi taglio</button>
+          <table id="denominationsTable">
+            <thead>
+              <tr>
+                <th>Valore Fiche (unità)</th>
+                <th>Quantità</th>
+                <th>Rimuovi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Riga di esempio iniziale (puoi avviarne una vuota) -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Bottone per calcolare il valore base di ogni "unità" di fiche -->
+        <button id="calculateBaseValue">Calcola Valore Base</button>
+
+        <!-- Risultato del calcolo (valore base per unità e valore di ogni taglio) -->
+        <div id="baseValueResult"></div>
+      </section>
+
+      <!-- Sezione per inserire i giocatori e quante fiches (finali) hanno -->
+      <section class="players-section">
+        <h2>Giocatori & Distribuzione Finale</h2>
+
+        <!-- Numero di giocatori per generare la tabella -->
+        <div class="form-group">
+          <label for="numPlayers">Numero di giocatori:</label>
+          <input type="number" id="numPlayers" min="1" value="2" />
+          <button id="createPlayersTable">Crea tabella giocatori</button>
+        </div>
+
+        <!-- Tabella dove inseriamo i dati finali delle fiches di ogni giocatore -->
+        <div class="players-table-container">
+          <table id="playersTable">
+            <thead>
+              <!-- Verrà generato dinamicamente -->
+            </thead>
+            <tbody>
+              <!-- Verrà generato dinamicamente -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Bottone per calcolare il valore corrispettivo di ciascun giocatore -->
+        <button id="calculatePlayersValue">Calcola Risultato Finale</button>
+
+        <!-- Elenco dei risultati finali -->
+        <div id="playersValueResult"></div>
+      </section>
     </div>
+
+    <!-- Colleghiamo il file JavaScript -->
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
