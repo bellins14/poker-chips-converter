@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // =======================
-  // Funzione per arrotondamenti bilanciati
+  // Funzione per arrotondamenti bilanciati conversione soldi
   // =======================
   const balancedRounding = (values, total) => {
     const roundedValues = values.map(Math.floor); // Approssimazioni iniziali (verso il basso)
