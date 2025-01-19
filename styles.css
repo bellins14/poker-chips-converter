@@ -25,7 +25,7 @@ h1 {
 }
 
 h2 {
-  color: var(--poker-red);
+  color: var(--poker-light-text);
   border-bottom: 2px solid var(--poker-gold);
   padding-bottom: 5px;
   margin-bottom: 15px;
@@ -85,7 +85,8 @@ button:active {
 }
 
 button:hover {
-  background-color: #ff6347; /* Rosso chiaro */
+  /*background-color: #ff6347;*/ /* Rosso chiaro */
+  background-color: var(--poker-red-hover);
   box-shadow: 0px 0px 10px var(--poker-gold); /* Effetto oro al passaggio */
 }
 
