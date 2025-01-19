@@ -62,28 +62,28 @@ document.addEventListener("DOMContentLoaded", () => {
         inputElement.value = ""; // Resetta il campo
       }
     });
+  };
 
-    // =======================
-    // Funzione per arrotondamenti bilanciati
-    // =======================
-    const balancedRounding = (values, total) => {
-      const roundedValues = values.map(Math.floor); // Approssimazioni iniziali (verso il basso)
-      const remainders = values.map((v, i) => v - roundedValues[i]); // Calcoliamo i resti
-      let difference = total - roundedValues.reduce((a, b) => a + b, 0); // Calcoliamo la differenza
+  // =======================
+  // Funzione per arrotondamenti bilanciati
+  // =======================
+  const balancedRounding = (values, total) => {
+    const roundedValues = values.map(Math.floor); // Approssimazioni iniziali (verso il basso)
+    const remainders = values.map((v, i) => v - roundedValues[i]); // Calcoliamo i resti
+    let difference = total - roundedValues.reduce((a, b) => a + b, 0); // Calcoliamo la differenza
 
-      // Ordina gli indici dei resti in ordine decrescente
-      const indices = remainders
-        .map((value, index) => ({ value, index }))
-        .sort((a, b) => b.value - a.value)
-        .map((item) => item.index);
+    // Ordina gli indici dei resti in ordine decrescente
+    const indices = remainders
+      .map((value, index) => ({ value, index }))
+      .sort((a, b) => b.value - a.value)
+      .map((item) => item.index);
 
-      // Distribuisci il resto partendo dai resti più grandi
-      for (let i = 0; i < difference; i++) {
-        roundedValues[indices[i]]++;
-      }
+    // Distribuisci il resto partendo dai resti più grandi
+    for (let i = 0; i < difference; i++) {
+      roundedValues[indices[i]]++;
+    }
 
-      return roundedValues;
-    };
+    return roundedValues;
   };
 
   // =======================
